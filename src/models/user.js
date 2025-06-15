@@ -61,11 +61,7 @@ const userSchema = new mongoose.Schema(
     reward_point: {
       type: Number,
       default: 0,
-      min: [0, "Reward points cannot be negative"]
-    },
-    status: {
-      type: Boolean,
-      default: true
+      min: [0, "Điểm thưởng không thể là số âm!"]
     },
     isVerified: {
       type: Boolean,
@@ -78,6 +74,10 @@ const userSchema = new mongoose.Schema(
     verificationTokenExpires: {
       type: Date,
       select: false
+    },
+    status: {
+      type: Boolean,
+      default: true
     },
     role: {
       type: String,
