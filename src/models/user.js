@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const mongoose_delete = require("mongoose-delete");
-const avatar = require("../../public/images/avatar/avatar-default.png")
+const avatar = require("../../public/images/avatar/avatar-default.png");
 
 const userSchema = new mongoose.Schema(
   {
@@ -58,10 +58,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: avatar
     },
-    friends: [{
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "User"
-}],
+    friends: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }
+    ],
     reward_point: {
       type: Number,
       default: 0,
@@ -97,7 +99,7 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-    suppressReservedKeysWarning: true,
+    suppressReservedKeysWarning: true
   }
 );
 
