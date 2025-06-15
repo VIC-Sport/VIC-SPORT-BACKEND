@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const mongoose_delete = require("mongoose-delete");
+const avatar = require("../../public/images/avatar/avatar-default.png")
 
 const userSchema = new mongoose.Schema(
   {
@@ -55,8 +56,7 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default:
-        "https://static.vecteezy.com/system/resources/previews/019/896/008/original/male-user-avatar-icon-in-flat-design-style-person-signs-illustration-png.png"
+      default: avatar
     },
     reward_point: {
       type: Number,
