@@ -90,9 +90,23 @@ const userSchema = new mongoose.Schema(
     }
   },
   {
-    timestamps: true //createAt, updateAt
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    suppressReservedKeysWarning: true,
   }
 );
+
+// Indexes for better query performance
+userSchema.index({ role: 1 });
+userSchema.index({ isVerified: 1 });
+userSchema.index({ status: 1 });
+userSchema.index({ phone: 1 });
+
+// Virtual for full user info
+userSchema.virtual("fullInfo").get(function () {
+  return `${this.fullName} (${this.phone}) - ${this.role}`;
+});
 
 userSchema.plugin(mongoose_delete, { overrideMethods: "all" });
 const User = mongoose.model("User", userSchema);
