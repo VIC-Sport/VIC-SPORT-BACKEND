@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
-// const fileUpload = require('express-fileupload');
+const fileUpload = require('express-fileupload');
 const connection = require('./config/database');
+const AuthRoutes = require('./routes/auth.routes');
 const app = express();
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOST_NAME;
@@ -9,11 +10,13 @@ const hostname = process.env.HOST_NAME;
 //config fileupload
 //luu y: phai config phia tren route
 //default options
-// app.use(fileUpload());
+app.use(fileUpload());
 
 // config req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/v1/api/auth/', AuthRoutes);
 
 (async() => { 
   try {

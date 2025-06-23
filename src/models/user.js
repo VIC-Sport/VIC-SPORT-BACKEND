@@ -66,6 +66,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: avatar
     },
+    reward_point: {
+      type: Number,
+      default: 0,
+      min: [0, "Reward points cannot be negative!"]
+    },
 
     // --- Thông tin mở rộng để kết nối bạn bè ---
     favoriteSports: {
@@ -110,14 +115,19 @@ const userSchema = new mongoose.Schema(
     blockedUsers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 
     // --- Role và bảo mật ---
-    reward_point: {
-      type: Number,
-      default: 0,
-      min: [0, "Reward points cannot be negative!"]
+    code: {
+      type: Number
+    },
+    codeExpired: {
+      type: Date
     },
     status: {
-      type: Number,
-      default: 0
+      type: String,
+      enum: {
+        values: ["ACTIVE", "INACTIVE"],
+      },
+      required: [true, "Role is required"],
+      default: "INACTIVE"
     },
     role: {
       type: String,
@@ -127,10 +137,6 @@ const userSchema = new mongoose.Schema(
       },
       required: [true, "Role is required"],
       default: "USER"
-    },
-    isVerified: {
-      type: Boolean,
-      default: false
     },
     verificationToken: {
       type: String,
