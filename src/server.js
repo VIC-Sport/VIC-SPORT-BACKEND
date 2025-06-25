@@ -1,31 +1,25 @@
-require('dotenv').config();
-const express = require('express');
-const fileUpload = require('express-fileupload');
-const connection = require('./config/database');
-const AuthRoutes = require('./routes/auth.routes');
+require("dotenv").config();
+const express = require("express");
+const fileUpload = require("express-fileupload");
+const connection = require("./config/database");
 const app = express();
 const port = process.env.PORT || 8888;
-const hostname = process.env.HOST_NAME;
 
-//config fileupload
-//luu y: phai config phia tren route
-//default options
+
 app.use(fileUpload());
 
 // config req.body
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // for json
+app.use(express.urlencoded({ extended: true })); // for form data
 
-app.use('/v1/api/auth/', AuthRoutes);
 
-(async() => { 
+(async () => {
   try {
     await connection();
-    app.listen(port, hostname, () => {
-    console.log(`backend zero app listening on port ${port}`)
-  });
+    app.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
+    });
   } catch (error) {
     console.log(">>> Err connect to db: ", error);
   }
-})()
-
+})();
